@@ -8,6 +8,16 @@ variables:
   imageName: 'pipelines-javascript-docker'
 
 steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'complete/pom.xml'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
 - task: Docker@2
   displayName: Build an image
   inputs:
